@@ -1,0 +1,130 @@
+<html><head></head><body><div id="ketsu-final-data">{"request":{"url":"https://animehub.ac/ajax/anime/load_episodes_v2?s=fserver","method":"post","headers":[{"key":"","value":""}],"httpBody":"episode_id=140061&amp;ctk=848bb2123a6a85d3b02a58940ca557bb"},"extra":{"commands":[{"commandName":"","params":[{"key":"","value":""}]}],"extraInfo":[{"key":"count","value":"0"},{"key":"httpBody","value":"episode_id=140061&amp;ctk=848bb2123a6a85d3b02a58940ca557bb"},{"key":"server0","value":"https://animehub.ac/ajax/anime/load_episodes_v2?s=fserver"},{"key":"server1","value":"https://animehub.ac/ajax/anime/load_episodes_v2?s=fdserver"},{"key":"server2","value":"https://animehub.ac/ajax/anime/load_episodes_v2?s=oserver"},{"key":"server3","value":"https://animehub.ac/ajax/anime/load_episodes_v2?s=hserver"}]},"javascriptConfig":{"removeJavascript":false,"loadInWebView":false,"javaScript":""},"output":{"videos":{"needsResolver":[{"resolverIdentifier":"","link":{"url":"https://embed.vodstream.xyz?k=214ad24ca225a13c861501be7108e478393d1afb022f4d29f6c4bfc1ba683ff260416dd0ec80a9d5ba23408a7eece31b&amp;li=140061&amp;tham=1614174807&lt;=fb&amp;qlt=720p&amp;fqlt=HD&amp;spq=p&amp;prv=&amp;key=544f390154eb301d6318e4edc777cde9&amp;ua=802a1200e7ca638d6a6071bfed50e66dd9601ba77a61cd5f11804df3c90df34562a70ff95ca773f0234947cc8a6aa7c576c97fb46de598cf0491105a50ac8bf13ee7b570046655411e3aa415756daa39a6913dd53ec12a847c880bf6f50260a12f91182dc7962b409a0e65dfe7a730c82d0a0110de8d6d78f5a22d94d9768725&amp;frc=1&amp;h=1614174807","method":"get","headers":[{"key":"","value":""}],"httpBody":null}}],"rawVideo":[]},"images":null,"text":null}}</div><script type="text/javascript">/*{"status":true,"value":"<iframe src=\"https:\/\/embed.vodstream.xyz?k=214ad24ca225a13c861501be7108e478393d1afb022f4d29f6c4bfc1ba683ff260416dd0ec80a9d5ba23408a7eece31b&li=140061&tham=1614174807&lt=fb&qlt=720p&fqlt=HD&spq=p&prv=&key=544f390154eb301d6318e4edc777cde9&ua=802a1200e7ca638d6a6071bfed50e66dd9601ba77a61cd5f11804df3c90df34562a70ff95ca773f0234947cc8a6aa7c576c97fb46de598cf0491105a50ac8bf13ee7b570046655411e3aa415756daa39a6913dd53ec12a847c880bf6f50260a12f91182dc7962b409a0e65dfe7a730c82d0a0110de8d6d78f5a22d94d9768725&frc=1&h=1614174807\" width=\"100%\" height=\"100%\" style=\"border:none;overflow:hidden\" allowfullscreen allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\"><\/iframe>","embed":true,"html5":false,"type":"","sv":"fb","download_get":""}*/</script>
+    <script type="text/javascript">    
+        function Chapters(request, extra, javascriptConfig, output) {
+        this.request = request;
+        this.extra = extra;
+        this.javascriptConfig = javascriptConfig;
+        this.output = output;
+    }
+    
+    function ModuleRequest(url, method, headers, httpBody) {
+        this.url = url;
+        this.method = method;
+        this.headers = headers;
+        this.httpBody = httpBody;
+    }
+    
+    function Extra(commands, extraInfo) {
+        this.commands = commands;
+        this.extraInfo = extraInfo;
+    }
+    
+    function Commands(commandName, params) {
+        this.commandName = commandName;
+        this.params = params;
+    }
+    
+    function JavascriptConfig(removeJavascript, loadInWebView, javaScript) {
+        this.removeJavascript = removeJavascript;
+        this.loadInWebView = loadInWebView;
+        this.javaScript = javaScript;
+    }
+    
+    function KeyValue(key, value) {
+        this.key = key;
+        this.value = value;
+    }
+    
+    function Output( videos, images, text) {
+        this.videos = videos;
+        this.images = images;
+        this.text = text;
+    }
+    
+    function Videos(needsResolver, rawVideo) {
+        this.needsResolver = needsResolver;
+        this.rawVideo = rawVideo;
+    }
+    
+    function NeedsResolver(resolverIdentifier, link) {
+        this.resolverIdentifier = resolverIdentifier;
+        this.link = link;
+    }
+    
+    function RawVideo(video) {
+        this.video = video;
+    }
+    
+    function Video(videoQuality, videoLink) {
+        this.videoQuality = videoQuality;
+        this.videoLink = videoLink;
+    }
+    
+    function Images(images) {
+        this.images = images;
+    }
+    
+    function Text(text) {
+        this.text = text;
+    }
+
+    function getValueFromKey(keys,key) {
+        for (var x = 0; x < keys.length; x++) {
+            let tKey = keys[x];
+            if (tKey.key == key) {
+                return tKey.value;
+            }
+        }
+    }
+
+
+    var savedData = document.getElementById('ketsu-final-data');
+    var parsedJson = JSON.parse(savedData.innerText);
+    var output = parsedJson.output.videos;
+
+    
+    var emptyKeyValue = [new KeyValue('', '')];
+
+    var extraInfo = parsedJson.extra.extraInfo;
+    var server = parsedJson.request.url.split('odes_v2?s=')[1];
+    var actualCount = getValueFromKey(extraInfo,'count');
+    if (actualCount == 0) {
+        output = new Videos([],[]);
+    }
+
+    let data = document.querySelector('script').innerText.replace('/*','').replace('*/','');
+    var httpBody = getValueFromKey(extraInfo,'httpBody');
+    var nextRequest = getValueFromKey(extraInfo,'server' + actualCount);
+
+
+    let parsedResponse =  JSON.parse(data);
+    let link = parsedResponse.value.split('\"')[1];
+    let videoHeaders = [new KeyValue('Referer','https://animehub.ac/'),
+    new KeyValue('Accept','text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'),new KeyValue('accept-language','en-us')];
+    output.needsResolver.push(new NeedsResolver(server, new ModuleRequest(encodeURIComponent(link), 'get', videoHeaders, null)));
+    extraInfo[0].value = ''  + (parseInt(actualCount) + 1);
+    
+    if (nextRequest == undefined) {
+        nextRequest = '';
+        for (var x  = 0; x <  output.needsResolver.length; x++) {
+            let vid = decodeURIComponent(output.needsResolver[x].link.url);
+            if (!vid.includes('https:')) {
+                output.needsResolver[x].link.url = 'https:' + vid;
+            } else {
+                output.needsResolver[x].link.url = vid;
+            }
+        }
+    }
+
+    let emptyExtra = new Extra([new Commands('', emptyKeyValue)], extraInfo);
+    var chaptersObject = new Chapters(new ModuleRequest(nextRequest, 'post', emptyKeyValue, httpBody), emptyExtra, new JavascriptConfig(false, false, ''), new Output(output, null, null));
+    var finalJson = JSON.stringify(chaptersObject);
+    savedData.innerText = finalJson;
+
+    
+    
+    </script>
+
+</body></html>
+
+   
